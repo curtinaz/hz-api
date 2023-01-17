@@ -6,6 +6,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Constants\RES;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -74,13 +75,19 @@ class UsersController extends Controller
      */
     public function register(RegisterRequest $req)
     {
-
         $passwordHash = password_hash($req->password, PASSWORD_BCRYPT);
-        $user = User::create([
-            "name" => $req->name,
-            "email" => $req->email,
-            "password" => $passwordHash
-        ]);
+
+        try{
+            $user = User::create([
+                "name" => $req->name,
+                "email" => $req->email,
+                "username" => $req->username,
+                "password" => $passwordHash
+            ]);
+        } catch (Exception $e) {
+            return RES::BADREQUEST("An unexpected error ocurred");
+        }
+
 
         return RES::OK($user);
     }
