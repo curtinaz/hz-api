@@ -8,6 +8,7 @@ use App\Models\User;
 use Constants\RES;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
@@ -90,5 +91,10 @@ class UsersController extends Controller
 
 
         return RES::OK($user);
+    }
+
+    public function me(Request $req) {
+        $user = User::find((Auth::user())->id);
+        return $user;
     }
 }
