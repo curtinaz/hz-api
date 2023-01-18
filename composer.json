@@ -27,7 +27,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Http/Constants/responses.php"
+            "app/Http/Constants/responses.php",
+            "app/Http/Constants/item_kind.php"
         ]
     },
     "autoload-dev": {
